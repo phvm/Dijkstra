@@ -3,10 +3,12 @@ def main():
         def __init__(self, vertices):
             self.V = vertices
             self.grafo = {}
-            for k in range(vertices):
-                self.grafo[k] = {}
 
         def inserir(self, vert1, vert2, peso):
+            if not self.grafo[vert1]:
+                self.grafo[vert1] = {}
+            if not self.grafo[vert2]:
+                self.grafo[vert2] = {}
             self.grafo[vert1][vert2] = peso
             self.grafo[vert2][vert1] = peso
 
