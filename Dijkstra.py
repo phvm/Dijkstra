@@ -70,7 +70,7 @@ def main():
 
     while True:
         print("Digite '0' para consultar o menor caminho na linha de abastecimento", end=" ")
-        print("ou '1' para informar um defeito em uma linha de abastecimento (informando os dois vértices)")
+        print("ou '1' para informar um defeito em uma linha de abastecimento (inserindo os dois vértices)")
         try:
             consulta = input()
             print(consulta)
