@@ -15,6 +15,10 @@ def main():
                 self.grafo[vert2] = {}
                 self.grafo[vert2][vert1] = peso
 
+        def remover(self, vert1, vert2):
+            del self.grafo[vert1][vert2]
+            del self.grafo[vert2][vert1]
+
         def dijkstra(self, src, dest):
             men_dist = {}
             antecessor = {}
@@ -53,6 +57,7 @@ def main():
                 print(*caminho, sep=" ")
 
     grafo = Grafo()
+    print("Insira a base de dados:")
     while True:
         try:
             entrada = input().split(" ")
@@ -64,10 +69,18 @@ def main():
             break
 
     while True:
+        print("Digite '0' para consultar o menor caminho na linha de abastecimento", end=" ")
+        print("ou '1' para informar um defeito em uma linha de abastecimento (informando os dois vértices)")
         try:
-            consulta = input(). split(" ")
-            if consulta[0] != "":
-                grafo.dijkstra(consulta[0], consulta[1])
+            consulta = input()
+            print(consulta)
+            if consulta == "1":
+                defeito = input().split(" ")
+                grafo.remover(defeito[0], defeito[1])
+                print("Defeito informado!")
+            elif consulta == "0":
+                consultar = input().split(" ")
+                grafo.dijkstra(consultar[0], consultar[1])
             else:
                 break
         except EOFError:
