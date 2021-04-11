@@ -49,11 +49,11 @@ def main():
                     caminho.insert(0, atual)
                     atual = antecessor[atual]
                 except KeyError:
-                    print(str(dest) + " não é alcançavel por " + str(src))
+                    print(str(src) + " nao é conectavel com " + str(dest))
                     break
             caminho.insert(0, src)
             if men_dist[dest] != infinito:
-                print("O menor caminho é: ", end="")
+                print("O menor caminho da conexao é: ", end="")
                 print(*caminho, sep=" ")
 
     grafo = Grafo()
