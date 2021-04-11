@@ -14,7 +14,6 @@ def main():
             except KeyError:
                 self.grafo[vert2] = {}
                 self.grafo[vert2][vert1] = peso
-            print(self.grafo)
 
         def dijkstra(self, src, dest):
             men_dist = {}
