@@ -1,16 +1,20 @@
 def main():
     class Grafo:
-        def __init__(self, vertices):
-            self.V = vertices
+        def __init__(self):
             self.grafo = {}
 
         def inserir(self, vert1, vert2, peso):
-            if not self.grafo[vert1]:
+            try:
+                self.grafo[vert1][vert2] = peso
+            except KeyError:
                 self.grafo[vert1] = {}
-            if not self.grafo[vert2]:
+                self.grafo[vert1][vert2] = peso
+            try:
+                self.grafo[vert2][vert1] = peso
+            except KeyError:
                 self.grafo[vert2] = {}
-            self.grafo[vert1][vert2] = peso
-            self.grafo[vert2][vert1] = peso
+                self.grafo[vert2][vert1] = peso
+            print(self.grafo)
 
         def dijkstra(self, src, dest):
             men_dist = {}
@@ -48,6 +52,27 @@ def main():
             if men_dist[dest] != infinito:
                 print("O menor caminho é: ", end="")
                 print(*caminho, sep=" ")
+
+    grafo = Grafo()
+    while True:
+        try:
+            entrada = input().split(" ")
+            if entrada[0] != "":
+                grafo.inserir(entrada[0], entrada[1], int(entrada[2]))
+            else:
+                break
+        except EOFError:
+            break
+
+    while True:
+        try:
+            consulta = input(). split(" ")
+            if consulta[0] != "":
+                grafo.dijkstra(consulta[0], consulta[1])
+            else:
+                break
+        except EOFError:
+            break
 
 
 if __name__ == '__main__':
