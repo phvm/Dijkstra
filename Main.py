@@ -16,20 +16,38 @@ st.text("Nesta aplicação, cada ponto representa um transformador, gerador ou u
         " sem energia elétrica.")
 
 options = list(range(1, 4942))
-st.subheader("Buscar menor caminho")
-src = st.selectbox("Inicio do caminho", options, index=0)
-dest = st.selectbox("Fim do caminho", options, index=0)
-if st.button("Buscar"):
-    caminho = grafo.dijkstra(int(src), int(dest))
-    st.write(caminho)
-st.subheader("Informar falha em um conexão")
-vert1 = st.selectbox("Primeiro ponto", options, index=0)
-vert2 = st.selectbox("Segundo ponto", options, index=0)
-if st.button("Informar falha"):
-    msg = grafo.remover_ares(int(vert1), int(vert2))
-    st.write(msg)
-st.subheader("Informar defeito em um transformador, gerador ou subestação")
-vert = st.selectbox("Ponto de falha", options, index=0)
-if st.button("Informar defeito"):
-    msg = grafo.remover_vert(int(vert))
-    st.write(msg)
+fct = st.sidebar.selectbox("Selecione uma função:", ("Buscar menor caminho", "Informar falha", "Informar defeito"))
+if fct == "Buscar menor caminho":
+    st.header("Buscar menor caminho")
+    src = st.selectbox("Ponto inicial", options, index=0, key="fp")
+    dest = st.selectbox("Ponto final", options, index=0, key="fp")
+    if st.button("Buscar"):
+        caminho = grafo.dijkstra(int(src), int(dest))
+        st.write("O menor caminho é: " + caminho)
+elif fct == "Informar falha":
+    st.header("Informar falha em um conexão")
+    st.subheader("Pontos de falha")
+    vert1 = st.selectbox("Primeiro ponto de falha", options, index=0)
+    vert2 = st.selectbox("Segundo ponto de falha", options, index=0)
+
+    st.subheader("Pontos que está tentando conectar")
+    src = st.selectbox("Ponto inicial", options, index=0, key="sp")
+    dest = st.selectbox("Ponto final", options, index=0, key="sp")
+    if st.button("Informar falha"):
+        msg = grafo.remover_ares(int(vert1), int(vert2))
+        caminho = grafo.dijkstra(int(src), int(dest))
+        st.write(msg)
+        st.write(caminho)
+else:
+    st.header("Informar defeito em um ponto")
+    st.subheader("Ponto onde houve o defeito")
+    vert = st.selectbox("Ponto de falha", options, index=0)
+
+    st.subheader("Pontos que está tentando conectar")
+    src = st.selectbox("Ponto inicial", options, index=0, key="tp")
+    dest = st.selectbox("Ponto final", options, index=0, key="tp")
+    if st.button("Informar defeito"):
+        msg = grafo.remover_vert(int(vert))
+        caminho = grafo.dijkstra(int(src), int(dest))
+        st.write(msg)
+        st.write(caminho)
