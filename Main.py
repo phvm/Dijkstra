@@ -2,6 +2,7 @@ import streamlit as st
 from Grafo import *
 from insert import insert
 
+st.set_page_config(page_title='Reconectando')
 path = "Dataset"
 data = insert(4941, path)
 grafo = Grafo(data)
